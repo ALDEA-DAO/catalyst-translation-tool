@@ -3,7 +3,7 @@
 *******************************************  
 
 ## **Aldea Devs**  
-### **Traductor de Proyect Catalyst**  
+### **Traductor de Project Catalyst**  
 
 *******************************************  
 
@@ -13,7 +13,7 @@ https://github.com/manupadillaph/Catalyst
 *******************************************  
 
 El desarrollo esta compuesto de cuatro partes: 
-1. **Catalyst-backend-web:** web de administración que interactua con la Api de descarga y traducción (Catalyst-download-translate-api) y setea la traducción a mostrar en la web en español.  
+1. **Catalyst-backend-web:** web de administración que interactua con la API de descarga y traducción (Catalyst-download-translate-api) y setea la traducción a mostrar en la web en español.  
 2. **Catalyst-download-translate-api:** servicios API generados a partir de la función de AWS Lambda Catalyst-download-translate. 
 3. **Catalyst-download-translate:** función de AWS Lambda que realiza la descarga desde la Api de IdeaScale y hace las traducciones con la Api de Google Translate.  
 4. **Catalyst-flask-web:** es la web en español.  
