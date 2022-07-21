@@ -1,0 +1,10 @@
+{
+    "dev": {
+        "app_function": "app.app",
+        "profile_name": null,
+        "project_name": "catalyst-flask-web",
+        "runtime": "python3.8",
+        "s3_bucket": "catalyst-zappa",
+        "aws_region": "ap-southeast-2"
+    }
+}

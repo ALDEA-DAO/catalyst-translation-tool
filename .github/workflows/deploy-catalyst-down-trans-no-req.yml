@@ -1,0 +1,33 @@
+name: deploy-catalyst-down-trans-no-req
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+  push:
+    branches:
+    - 'master'
+    paths:
+    - 'catalyst-download-translate/**'
+    - '!catalyst-download-translate/requirements.txt'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@master
+    - name: Deploy code to Lambda without layers of dependences
+      uses: ./.github/actions/python-to-lambda
+      with:
+        lambda_python_folder: 'catalyst-download-translate'
+        lambda_function_name: 'catalyst-download-translate'
+        lambda_update_function_code: 'true'
+        lambda_create_layers: 'false'
+        lambda_layer_arn: 'arn:aws:lambda:${{ secrets.AWS_REGION }}:705933073352:layer:catalyst-dependences'
+        lambda_layer_name: 'catalyst-dependences'
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}

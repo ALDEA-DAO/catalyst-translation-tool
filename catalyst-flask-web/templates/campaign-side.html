@@ -1,0 +1,32 @@
+<aside class="col-sidebar col-12 col-lg-3 d-none d-lg-block">
+    <div class="sidebar-wrapper" role="complementary" id="sidebar-wrapper" tabindex="-1">
+        <div class="sidebar-view-mode ">
+
+            <section class="card panel collapse-expand-container border-0 campaign-stats-module panel-light">
+                <header class="card-header panel-heading d-flex justify-content-between align-items-center py-2 ">
+                    <span class="collapsable-header-title d-flex align-items-center text-truncate ">
+                        <h1 class="h6 font-weight-bold mb-0 text-truncate " title="Acerca de la campaña">Acerca de la campaña</h1>
+                    </span>
+                  
+              </header>
+                <div class="collapse show">
+                    <article class="card-body">
+                        <div class="campaign-details">
+                            <div class="py-2 d-flex align-items-center"><img src="{{ campaign['logoImage'] }}" width="30" height="30" alt="logo" class="campaign-logo mr-2"><span class="text-truncate font-weight-bold">{{ campaign['name'] }}</span></div>
+                            <div class="campaign-subtitle pt-1" style="border-bottom: 1px solid #48484a; ">
+                                <p class="mb-0 pl-2">{{ campaign['tagline'] }}</p>
+                            </div>
+                          <div class="campaign-team" style="border-bottom: 1px solid #48484a;"><a target="_blank" href="https://cardano.ideascale.com/a/campaign-home/{{ campaign['id'] }}" sty>Página Oficial</a></div>
+                          <div class="campaign-team"><a target="_blank" href="https://cardano.ideascale.com/c/campaigns/{{ campaign['id'] }}/team">Equipo de la campaña</a></div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            
+
+
+            {% include 'side-campaings-list.html' %}        </div>
+        <div class="footer-ideascale-logo mt-4 mb-2"><a href="https://ideascale.com/" target="_blank" title="Go to ideascale.com" rel="noreferrer"><img src="{{url_for('static', filename='ideascale-logo-blue.f2e422ea.svg')}}" height="" alt="Powered by IdeaScale" class="w-100"></a></div>
+    </div>
+</aside>

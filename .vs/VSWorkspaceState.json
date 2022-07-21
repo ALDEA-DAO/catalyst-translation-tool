@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\.github",
+    "\\catalyst-backend-web",
+    "\\catalyst-download-translate",
+    "\\catalyst-flask-web"
+  ],
+  "SelectedNode": "\\catalyst-download-translate\\googleAPI.json",
+  "PreviewInSolutionExplorer": false
+}

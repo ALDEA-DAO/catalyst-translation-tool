@@ -1,0 +1,175 @@
+<div class="idea-list">
+    <div class="idea-list-mode d-flex justify-content-between align-items-center mb-3">
+        <div id="nav">
+            {%  if orderby=="commentCount" %}
+            <a class="dropdown-toggle" href="#" style="color: white; border-radius: 4px; text-decoration: none;">Tendencias</a>
+            {% else %}
+            <a class="dropdown-toggle" href="#" style="color: white; border-radius: 4px; text-decoration: none; ">Popular</a>
+            {% endif %}
+            <ul class="dropdown" style="border-radius: 4px;">
+                <li>
+
+                    {%  if  campaign  %}
+                <li><a href="{{ url_for('campaign',campaign_id=campaign['id'],pagination=1,orderby='commentCount',orderdir='desc') }}" style="color:white">Tendencias</a></li>
+                <li><a href="{{ url_for('campaign',campaign_id=campaign['id'],pagination=1,orderby='voteCount',orderdir='desc') }}" style="color:white">Popular</a></li>
+                {%  else  %}
+                <li><a href="{{ url_for('index',pagination=1,orderby='commentCount',orderdir='desc',tag=tag,search=search) }}" style="color:white">Tendencias</a></li>
+                <li><a href="{{ url_for('index',pagination=1,orderby='voteCount',orderdir='desc',tag=tag,search=search) }}" style="color:white">Popular</a></li>
+                {%  endif %}
+
+            </ul>
+        </div>
+
+
+        {% if campaign  %}
+        <div class="idea-tag-container d-flex mt-3 mb-3 align-items-center justify-content-between"><div>P&aacute;gina {{pagination}} de {{cantPaginas}}</div></div>
+
+        {% else %}
+
+        {% if tag != ""  %}
+        <div class="idea-tag-container d-flex mt-3 mb-3 align-items-center justify-content-between"><div>P&aacute;gina {{pagination}} de {{cantPaginas}} con ideas con la etiqueta: <span class="font-weight-bold" title="seek-{{tag}}"><b>{{tag}}</b></span></div></div>
+        {% else %}
+        {% if search != ""  %}
+        <div class="idea-tag-container d-flex mt-3 mb-3 align-items-center justify-content-between"><div>P&aacute;gina {{pagination}} de {{cantPaginas}} con ideas con el texto: <span class="font-weight-bold" title="seek-{{search}}"><b>{{search}}</b></span></div></div>
+        {% else %}
+        <div class="idea-tag-container d-flex mt-3 mb-3 align-items-center justify-content-between"><div>P&aacute;gina {{pagination}} de {{cantPaginas}}</div></div>
+
+        {% endif %}
+
+        {% endif %}
+
+
+
+        {% endif %}
+
+        <div class="idea-tag-container d-flex mt-3 mb-3 align-items-center justify-content-between"><div>
+            <style>
+
+                input[type="search"] {
+                    border: none;
+                    background: transparent;
+                    margin: 0;
+                    padding: 7px 8px;
+                    font-size: 14px;
+                    color: #bbb;
+                    border: 1px solid transparent;
+                    border-radius: inherit;
+                }
+
+                    input[type="search"]::placeholder {
+                        color: #bbb;
+                    }
+
+                button[type="submit"] {
+                    text-indent: -999px;
+                    overflow: hidden;
+                    width: 40px;
+                    padding: 0;
+                    margin: 0;
+                    border: 1px solid transparent;
+                    border-radius: inherit;
+                    background: transparent url("{{url_for('static', filename='lupa.png')}}") no-repeat center;
+                    background-size: 15px;
+                    cursor: pointer;
+                    opacity: 0.7;
+                }
+
+                    button[type="submit"]:hover {s
+                        opacity: 1;
+                    }
+
+                    button[type="submit"]:focus,
+                    input[type="search"]:focus {
+                        box-shadow: 0 0 3px 0 #1183d6;
+                        border-color: #1183d6;
+                        outline: none;
+                    }
+
+
+            </style>
+            
+        <form action="{{ url_for('index') }}" method="get">
+            <input name="search" type="search" style="width:160px" placeholder="Buscar Ideas...">
+            <button type="submit">Search</button>
+        </form>
+            
+       </div></div>
+
+
+
+        <script>
+            $(function () { // Dropdown toggle
+                $('.dropdown-toggle').click(function () {
+                    $(this).next('.dropdown').slideToggle();
+                });
+
+                $(document).click(function (e) {
+                    var target = e.target;
+                    if (!$(target).is('.dropdown-toggle') && !$(target).parents().is('.dropdown-toggle'))
+                    //{ $('.dropdown').hide(); }
+                    { $('.dropdown').slideUp(); }
+                });
+            });
+        </script>
+    </div>
+
+
+
+    <div class="ideas compact-view ">
+        {% for idea in ideas %}
+        <article class="idea " id="idea-410016" data-idea-id="410016">
+            <header class="idea-header" style="margin:0px">
+                {%  if  idea['attachmentDetails'] is iterable  and idea['attachmentDetails']|length>0  and idea['attachmentDetails'][0]['imageFile'] %}
+                <div class="idea-content mb-3 has-image-attachment ">
+                    <div class="idea-content-thumbnail-holder"><img class="idea-thumbnail" src="{{ idea['attachmentDetails'][0]['downloadUrl'] }}" alt="{{ idea['attachmentDetails'][0]['fileName'] }}"></div>
+                    {% endif %}
+
+
+
+                    <p class="idea-campaign"><a class="focus-box-shadow" rel="category" href="{{ url_for('campaign', campaign_id=idea['campaignId']) }}">{{idea['campaignName']}}</a></p>
+                    <h2 class="idea-title" lang="en"><a class="classic-link" title="The organization being selfish " href="{{ url_for('idea', idea_id=idea['id']) }}">{{idea['title']}}</a></h2>
+                    <div class="idea-meta-author idea-meta ">
+                        <div class="author-details">
+                            <a class="" tabindex="0" href="https://cardano.ideascale.com/c/profile/{{idea['authorInfo']['campaignId']}}">
+                                <img class="avatar avatar-sm" src="{{ idea['authorInfo']['avatarUrl']}}" alt="{{idea['authorInfo']['name']}}">
+                            </a>
+                            <span class="mr-2 contributors-spacer"></span>
+                            <div class="author-info">
+                                <a class="author-name text-truncate" title="{{idea['authorInfo']['name']}}" target="_blank" tabindex="0" href="https://cardano.ideascale.com/c/profile/{{idea['authorInfo']['id']}}">{{idea['authorInfo']['name']}}</a>
+                                <div data-element-id="submitted-date">
+                                    <time datetime="{{idea['creationDateTime']}}" title="{{idea['creationDateTime']}}">{{idea['creationDateTime']}}</time>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </header>
+            <div class="idea-main-details mb-3">
+                <div class="idea-content mb-3 ">
+
+                    <p>{{idea['text']}}</p>
+                </div>
+                <div class="idea-tags">
+                    {% for itag in idea['tags'] %}
+                    <a class="tag" href="{{ url_for('index',pagination=1,orderby='voteCount',orderdir='desc',tag=itag) }}"><span class="tag-label">{{itag}}</span></a>
+                    {% endfor  %}
+                </div>
+            </div>
+        </article>
+        {% endfor  %}
+    </div>
+    <div class="text-center mt-3">
+        {%  if  campaign  %}
+        {%  if pageAnt!=0 %}<a href="{{ url_for('campaign',campaign_id=campaign['id'],pagination=pageAnt,orderby=orderby,orderdir=orderdir) }}"><button class="btn btn-gray">Cargar atras</button></a>{% endif %}
+        {%  if pageNext!=0 %}<a href="{{ url_for('campaign',campaign_id=campaign['id'],pagination=pageNext,orderby=orderby,orderdir=orderdir) }}"><button class="btn btn-gray">Cargar siguiente</button></a>{% endif %}
+        {%  else  %}
+        {%  if pageAnt!=0 %}<a href="{{ url_for('index',pagination=pageAnt,orderby=orderby,orderdir=orderdir,tag=tag,search=search) }}"><button class="btn btn-gray">Cargar atras</button></a>{% endif %}
+        {%  if pageNext!=0 %}<a href="{{ url_for('index',pagination=pageNext,orderby=orderby,orderdir=orderdir,tag=tag,search=search) }}"><button class="btn btn-gray">Cargar siguiente</button></a>{% endif %}
+        {%  endif  %}
+
+
+
+
+
+
+    </div>
+</div>

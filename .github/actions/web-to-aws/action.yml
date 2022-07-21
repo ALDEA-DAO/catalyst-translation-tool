@@ -1,0 +1,23 @@
+name: Web to Amplify
+author: Manu Padilla
+description: Deploy python code to AWS Lambda with dependencies in a separate layer.
+inputs:
+  web_folder:
+    description: the name/path to the web folder to zip and deploy to amplify
+    required: true
+  amplify_app_name:
+    description: The Amplify App name. Check AWS CLI aws amplify list-apps
+    required: true
+  s3_bucket:
+    description: The s3 Bucket used for uploading ZIP and deploy to Amplify
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.web_folder }}
+    - ${{ inputs.amplify_app_name }}
+    - ${{ inputs.s3_bucket }}
+branding:
+  icon: 'layers'
+  color: 'yellow'

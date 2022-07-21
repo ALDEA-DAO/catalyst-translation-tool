@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% include 'campaign-header.html' %}
+
+<div class="container mt-3 px-sm-0 " style="margin-top: 5px!important;">
+    <div class="row">
+        <section class="col-12 col-main-content col-9">
+            <main class="main-content" id="main-content" tabindex="-1">
+                <div class="content">
+                 
+
+					
+<div class="card panel mb-4"><div class="card-body"><div class="row"><div class="col-sm col-md-5 CampaignDetails_featureImage__TORbj"><img src="{{ campaign['featureImage'] }}" class="img-fluid float-left rounded" alt="Campaign Featured Image"></div><div class="col-sm col-md-7"><h2 class="h4">Acerca {{ campaign['name'] }}</h2><div class="text-muted mb-2">{{ campaign['tagline'] }}</div><div class="ql-editor ql-render ">{{ campaign['description'] }}</div></div></div></div></div>
+				
+					
+				<div class="card panel mb-4 CampaignDetails_campaignBrief__mBsAY"><div class="card-body"><h2 class="h4">Resumen</h2><div class="ql-editor ql-render ">{{ campaign['summary'] }}</div></div></div>					
+                </div>
+                <div class="spacer mb-5"></div>
+            </main>
+        </section>
+        {% include 'campaign-side.html' %}
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}
+
+

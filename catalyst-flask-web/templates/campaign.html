@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% include 'campaign-header.html' %}
+
+<div class="container mt-3 px-sm-0 " style="margin-top: 5px!important;">
+    <div class="row">
+        <section class="col-12 col-main-content col-9">
+            <main class="main-content" id="main-content" tabindex="-1">
+                <div class="content">
+                    {% include 'idea-list.html' %}
+
+                </div>
+                <div class="spacer mb-5"></div>
+            </main>
+        </section>
+        {% include 'campaign-side.html' %}
+    </div>
+</div>
+
+
+
+
+
+
+{% endblock %}
+
+

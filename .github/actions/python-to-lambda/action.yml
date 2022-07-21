@@ -1,0 +1,42 @@
+name: Python to Lambda
+author: Manu Padilla
+description: Deploy python code to AWS Lambda with dependencies in a separate layer.
+inputs:
+  lambda_update_function_code:
+    description: bool for update function code with files in lambda folder
+    required: true
+    default: 'true'
+  lambda_create_layers:
+    description: bool for update function layers with dependences in requirements.txt
+    required: true
+    default: 'true'
+  requirements_txt:
+    description: the name/path to the requirements.txt file
+    required: true
+    default: 'requirements.txt'
+  lambda_python_folder:
+    description: the name/path to the python folder to zip and deploy to lambda
+    required: true
+  lambda_layer_arn:
+    description: The ARN for the Lambda layer the dependencies should be pushed to without the version (every push is a new version).
+    required: true
+  lambda_layer_name:
+    description: The Lambda layer name to search in the actual layers of the func and delete this one but let others
+    required: true
+  lambda_function_name:
+    description: The Lambda function name. Check the AWS docs/readme for examples.
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.lambda_update_function_code }}
+    - ${{ inputs.lambda_create_layers }}
+    - ${{ inputs.lambda_python_folder }}
+    - ${{ inputs.requirements_txt }}
+    - ${{ inputs.lambda_layer_arn }}
+    - ${{ inputs.lambda_layer_name }}
+    - ${{ inputs.lambda_function_name }}
+branding:
+  icon: 'layers'
+  color: 'yellow'

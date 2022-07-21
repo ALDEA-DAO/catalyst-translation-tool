@@ -1,0 +1,5 @@
+{
+  "SuppressEnvironmentCreationPrompt": true,
+  "Interpreter": "CondaEnv|CondaEnv|catalyst",
+  "SuppressConfigureTestFrameworkPrompt": "true"
+}

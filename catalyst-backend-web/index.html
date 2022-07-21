@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Catalyst Ideascale Scrapping y Traduccion</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+    <!-- Add some CSS to change client UI -->
+    <style>
+        body {
+            background-color: #232F3E;
+        }
+
+        label, button {
+            color: #FF9900;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        input {
+            color: #232F3E;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .ui-progressbar {
+            position: relative;
+            width: 400px;
+        }
+
+        .progress_label {
+            position: absolute;
+            left: 10%;
+            top: 4px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 08px;
+            font-weight: bold;
+            text-shadow: 1px 1px 0 #fff;
+        }
+    </style>
+
+    <script src="./settings.js"></script>
+
+    <script>
+        $(function () {
+
+            var download_progressbar = $("#download_progressbar");
+            var download_progressLabel = $("#download_progress_label");
+            var translate_progressbar = $("#translate_progressbar");
+            var translate_progressLabel = $("#translate_progress_label");
+
+            var TimeoutProgress
+
+            var swCheckDownload = false
+            var swCheckTranslate = false
+
+            download_progressbar.progressbar({
+                value: false,
+                change: function () {
+                    //download_progressLabel.text(download_progressbar.progressbar("value") + "%");
+                },
+                complete: function () {
+                    //download_progressLabel.text("Complete!");
+                }
+            });
+
+
+            translate_progressbar.progressbar({
+                value: false,
+                change: function () {
+                    //translate_progressLabel.text(translate_progressbar.progressbar("value") + "%");
+                },
+                complete: function () {
+                    //translate_progressLabel.text("Complete!");
+                }
+            });
+
+            $("#btn_download").click(function () {
+                callAPI('download', document.getElementById('dbName').value, "")
+            });
+
+            $("#btn_download_progressbar").click(function () {
+                callAPI('download-progress', document.getElementById('dbName').value, "")
+            });
+
+            $("#btn_translate").click(function () {
+                callAPI('translate', document.getElementById('dbName').value, "")
+            });
+
+            $("#btn_translate_progressbar").click(function () {
+                callAPI('translate-progress', document.getElementById('dbName').value, "")
+            });
+
+            $("#btn_setMostrarTabla").click(function () {
+                callAPI('setMostrarTabla', document.getElementById('dbName').value, document.getElementById('nombreProyecto').value)
+            });
+
+
+
+            function checkProgress() {
+                if (swCheckDownload) {
+                    callAPI('download-progress', document.getElementById('dbName').value, "")
+                }
+                if (swCheckTranslate) {
+                    callAPI('translate-progress', document.getElementById('dbName').value, "")
+                }
+            }
+
+            TimeoutProgress = setInterval(checkProgress, 12000);
+
+            // define the callAPI function that takes a first name and last name as parameters
+            async function callAPI(action, dbname, nombreProyecto) {
+                // instantiate a headers object
+                var myHeaders = new Headers();
+                // add content type header to object
+                myHeaders.append("Content-Type", "application/json");
+                // using built in JSON utility package turn object to string and store in a variable
+                var raw = JSON.stringify({ "action": action, "dbname": dbname, "nombreProyecto": nombreProyecto });
+                // create a JSON object with parameters for API call and store in a variable
+                var requestOptions = {
+                    method: 'POST',
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: 'follow'
+                };
+
+                try {
+
+                    if (action == "download") {
+                        download_progressbar.progressbar("option", "value", "");
+                        download_progressLabel.text("Downloading...");
+
+                        swCheckDownload = true
+                    }
+                    else if (action == "translate") {
+                        translate_progressbar.progressbar("option", "value", "");
+                        translate_progressLabel.text("Traduciendo...");
+
+                        swCheckTranslate = true
+                    }
+
+                    let response = await fetch(catalyst_api_url, requestOptions);
+
+                    console.log(response.status); // 200
+                    console.log(response.statusText); // OK
+
+                    let result = await response.json();
+
+                    if (action == "download-progress") {
+
+                        if (result.swTerminado) {
+                            download_progressbar.progressbar("value", 100);
+                            swCheckDownload = false
+
+                        } else {
+                            swCheckDownload = true
+                        }
+
+                        download_progressLabel.text(result.body);
+
+                    } else if (action == "translate-progress") {
+
+                        translate_progressbar.progressbar("value", result.porcentaje);
+
+                        translate_progressLabel.text(result.body);
+
+                        if (result.swTerminado) {
+                            translate_progressbar.progressbar("value", 100);
+                            swCheckTranslate = false
+                        } else {
+                            swCheckTranslate = true
+                        }
+
+                    } else if (action == "setMostrarTabla") {
+                        if (result.swSetMostrarTabla) {
+                            alert("Listo!")
+                        }
+                       
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+
+
+            }
+        });
+    </script>
+
+</head>
+<body>
+    <p><label>Catalyst Ideascale Scrapping y Traduccion</label></p>
+
+
+    <label>Sufijo Nombre De Tabla (Si existe se sobreescribe):</label>
+    <input type="text" id="dbName" value="">
+    <br />
+    <button type="button" id="btn_download">Download</button>
+    <button type="button" id="btn_download_progressbar">Ver progreso de Download</button>
+    <div id="download_progressbar"><div class="progress_label" id="download_progress_label"></div></div>
+    <br />
+    <button type="button" id="btn_translate">Traducir</button>
+    <button type="button" id="btn_translate_progressbar">Ver progreso de Traduccion</button>
+    <div id="translate_progressbar"><div class="progress_label" id="translate_progress_label"></div></div>
+    <br />
+
+
+    <label>Nombre del Proyecto:</label>
+    <input type="text" id="nombreProyecto" value="">
+
+    <button type="button" id="btn_setMostrarTabla">Setear Tabla para Mostrar en Web</button>
+</body>
+</html>

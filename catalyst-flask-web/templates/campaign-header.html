@@ -1,0 +1,32 @@
+
+<header class="page-header has-banner-gradient text-in-light" style="margin-top: 0px!important; padding-bottom: 0px;margin: 0px 0 0px;
+margin-top: 0px;border-bottom: 0px solid #eee;">
+    <div class="container h-100 bg-light rounded-bottom">
+
+        <img class="banner-image-as-bg position-absolute" src="{{ campaign['bannerImage'] }}" width="1140" height="150" alt="Banner" style="border-radius:4px">
+        <div class="d-flex align-items-end pb-3 h-100 position-relative banner-content">
+            <div class="d-flex align-items-center w-100">
+                <span class=" header-logo d-inline-flex align-items-center justify-content-center mr-3"><img src="{{ campaign['logoImage'] }}" class="rounded" width="74" alt="Logotipo"></span>
+                <div class="header-summary min-width ">
+                    <h1 title="{{ campaign['name'] }}" class="mb-0 page-heading text-truncate">{{ campaign['name'] }}</h1>
+                    <strong class="header-meta text-break">Catalizador de proyectos</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<nav class="page-navbar  has-navbar-action  navbar-expand-md" >
+    <div class="container p-0">
+        
+        <div style="">
+            <ul class="mr-auto font-weight-bold navbar-nav " style="margin-bottom: 10px;margin-left: 10px;">
+                <li class="nav-item px-2 px-md-3 nav-item"><a class="nav-link px-0 {%  if  not "acerca"  in  request.path  %}active active{% endif %}" href="{{ url_for('campaign', campaign_id=campaign['id']) }}" {%  if  not "acerca"  in  request.path  %}aria-current="page"{% endif %}>Ideas</a></li>
+                <li class="nav-item px-2 px-md-3 nav-item"><a class="nav-link px-0 {%  if  "acerca"  in  request.path  %}active active{% endif %}" href="{{ url_for('campaign_acerca', campaign_id=campaign['id']) }}" {%  if   "acerca"  in  request.path  %}aria-current="page"{% endif %}}>Acerca de</a></li>
+                <li class="nav-item px-2 px-md-3 nav-item"><a class="nav-link px-0" target="_blank" href="https://cardano.ideascale.com/c/campaigns/{{ campaign['id'] }}/team">Equipo</a></li>
+                <li class="nav-item px-2 px-md-3 nav-item"><a class="nav-link px-0" target="_blank" href="https://cardano.ideascale.com/c/campaigns/{{ campaign['id'] }}/workflow">Flujo de trabajo</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+

@@ -1,0 +1,29 @@
+name: deploy-catalyst-backend-web
+on:
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'     
+        required: true
+        default: 'warning'
+  push:
+    branches:
+    - 'master'
+    paths:
+    - 'catalyst-backend-web/**'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@master
+    - name: Web to AWS Amplify
+      uses: ./.github/actions/web-to-aws
+      with:
+        web_folder: 'catalyst-backend-web'
+        amplify_app_name: 'catalyst-backend-web'
+        s3_bucket: 'catalyst.translation'
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}

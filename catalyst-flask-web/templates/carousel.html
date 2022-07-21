@@ -1,0 +1,55 @@
+
+
+
+<div class="slider autoplay">
+    {% for campaign in campaigns %}
+                   
+        <div class="w-100 campaign-card" aria-label="{{ campaign['name'] }}" role="button" tabindex="-1">
+            <span class="mx-2 position-relative slider-container">
+                <a title="{{ campaign['name'] }}" href="{{ url_for('campaign', campaign_id=campaign['id']) }}">
+
+                    <div class="slider-bg-overlay w-100 h-100"></div>
+                    <img src="{{ campaign['featureImage'] }}" class="w-100 h-100 slider-image" alt="Featured-Image">
+                    <div class="slider-content mx-4 py-3 h-100">
+                        <div class="d-flex mw-100 slider-header">
+                            
+                            <p class="ml-2 text-break slider-title line-clamp-1">{{ campaign['name'] }}"</p>
+                        </div>
+                        <p class="my-2 mx-3 text-break line-clamp-5">{{ campaign['description'] }}</p>
+                    </div>
+                    </a>
+</span>
+        </div>
+                  
+    {% endfor  %}
+
+</div>
+
+
+
+
+
+
+
+
+<script>
+    $(function() {
+        $(document).ready(function () {
+
+
+
+            $(".autoplay").not('.slick-initialized').slick()
+
+        });
+
+        $('.autoplay').slick({
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 2000,
+        });
+    });
+
+</script>
+
+

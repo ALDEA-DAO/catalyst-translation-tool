@@ -1,0 +1,294 @@
+ {% extends 'base.html' %}
+
+{% block content %}
+
+
+{% include 'campaign-header.html' %}
+
+
+
+<div class="container mt-3 px-sm-0 " style="margin-top: 5px!important;">
+
+
+
+    <div class="row">
+
+       
+
+
+
+
+        <section class="col-12 col-main-content col-9">
+            <div class="idea-list-mode d-flex justify-content-between align-items-center mb-3">
+                <nav class="nav-back ">
+                    <button class="btn btn-link px-0 shadow-none" type="button">
+                        <a href="javascript:history.back()" style="text-decoration: none">
+                            <svg width="15" fill="#333" height="15" aria-hidden="true" class="position-relative pos-top-n1 active icon-fast-rewind">
+                                <use xlink:href="{{url_for('static', filename='is-icon-defs.37dab88b.svg#fast-rewind')  | replace('%23', '#') }}"></use>
+                            </svg>
+                            Lista
+                        </a>
+                    </button>
+                </nav>
+
+            
+           
+
+                
+
+
+               
+
+                <div class="idea-tag-container d-flex mt-3 mb-3 align-items-center justify-content-between">
+                    <div>
+                        <style>
+
+                input[type="search"] {
+                    border: none;
+                    background: transparent;
+                    margin: 0;
+                    padding: 7px 8px;
+                    font-size: 14px;
+                    color: #bbb;
+                    border: 1px solid transparent;
+                    border-radius: inherit;
+                }
+
+                    input[type="search"]::placeholder {
+                        color: #bbb;
+                    }
+
+                button[type="submit"] {
+                    text-indent: -999px;
+                    overflow: hidden;
+                    width: 40px;
+                    padding: 0;
+                    margin: 0;
+                    border: 1px solid transparent;
+                    border-radius: inherit;
+                    background: transparent url("{{url_for('static', filename='lupa.png')}}") no-repeat center;
+                    background-size: 15px;
+                    cursor: pointer;
+                    opacity: 0.7;
+                }
+
+                    button[type="submit"]:hover {s
+                        opacity: 1;
+                    }
+
+                    button[type="submit"]:focus,
+                    input[type="search"]:focus {
+                        box-shadow: 0 0 3px 0 #1183d6;
+                        border-color: #1183d6;
+                        outline: none;
+                    }
+
+
+                        </style>
+
+                        <form action="{{ url_for('index') }}" method="get">
+                            <input name="search" type="search" style="width:160px" placeholder="Buscar Ideas...">
+                            <button type="submit">Search</button>
+                        </form>
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+            <main class="main-content" id="main-content" tabindex="-1">
+
+
+
+
+                
+
+
+
+
+
+                <div class="box-shadow rounded mb-4">
+                    
+                    <article class="idea idea-details mb-0" data-idea-id="396617">
+                        <header class="idea-header">
+                            <p class="idea-campaign"><a class="focus-box-shadow" rel="category" href="/c/campaigns/26437/stage/stage-governancephase151c10/ideas/unspecified">{{ campaign['name'] }}</a></p>
+                            <h1 class="font-weight-bold h3">{{ idea['title'] }}</h1>
+                            <div class="idea-meta-author idea-meta has-contributors"></div>
+                        </header>
+                        <div class="idea-main-details mb-3">
+                            <div class="idea-content mb-3 has-image-attachment clearfix">
+                                {%  if  idea['attachmentDetails'] is iterable  and idea['attachmentDetails']|length>0 and idea['attachmentDetails'][0]['imageFile']  %}<div class="idea-content-thumbnail-holder"><img class="idea-thumbnail" src="{{ idea['attachmentDetails'][0]['downloadUrl'] }}" alt="{{ idea['attachmentDetails'][0]['fileName'] }}"></div>
+                                {% endif %}
+                                <span class="font-weight-bold mb-2">Descripción del problema</span>
+                                <div class="ql-editor ql-render ">{{ idea['text'] }}</div>
+                                <br>
+                                <span class="mb-2"><a style="text-decoration: none" target="_blank" href="https://cardano.ideascale.com/c/idea/{{ idea['id'] }}">Página Oficial de la Idea</a></span>
+
+                            </div>
+                            <section>
+                                <h2 class="sr-only h3">Tags</h2>
+
+                                {% for tag in idea['tags'] %}
+                                <a class="tag" href="{{ url_for('index',pagination=1,orderby='voteCount',orderdir='desc',tag=tag) }}"><span class="tag-label">{{tag}}</span></a>
+                                {% endfor  %}
+
+
+
+                            </section>
+
+                            {% if idea['campaignCustomFields'] | length>2 %}
+
+                            <div class="idea-meta">
+                                <dl class="">
+                                    <dd id="custom-field-section-122089">
+                                        <dl class="custom-fields" data-field-type="TEXTAREA">
+                                            <dt>Resume tu solución al problema</dt>
+                                            <dd class="ql-editor ql-render ">{{idea['campaignCustomFields']['Summarize your solution to the problem']}}</dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                                <dl class="">
+                                    <dd id="custom-field-section-122094">
+                                        <dl class="custom-fields" data-field-type="TEXTAREA">
+                                            <dt>Resuma su experiencia relevante</dt>
+                                            <dd class="ql-editor ql-render ">{{idea['campaignCustomFields']['Summarize your relevant experience']}}</dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                                <dl class="">
+                                    <dd id="custom-field-section-122090">
+                                        <dl class="custom-fields" data-field-type="HYPERLINK">
+                                            <dt>Website/Repositorio GitHub  (si aplica) </dt>
+                                            <dd class="ql-editor ql-render "><a href="https://github.com/orbis-tertius" rel="nofollow" target="__blank" data-url="aHR0cHM6Ly9naXRodWIuY29tL29yYmlzLXRlcnRpdXM" class="unfurl-url classic-link">{{idea['customFieldsByKey']['website_github_repository__not_required_']}} </a></dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                                <dl class="">
+                                    <dd id="custom-field-section-122086">
+                                        <dl class="custom-fields" data-field-type="INTEGER">
+                                            <dt>Fondos solicitados en USD </dt>
+                                            <dd>{{idea['campaignCustomFields']['Requested funds in USD']}}</dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                                {%  if  idea['campaignCustomFields']['Media (YouTube link)'] | length > 0  %}
+                                <dl class="">
+                                    <dd id="custom-field-section-122090">
+                                        <dl class="custom-fields" data-field-type="HYPERLINK">
+                                            <dt>Media (link YouTube)</dt>
+                                            <dd class="ql-editor ql-render "><a href="https://github.com/orbis-tertius" rel="nofollow" target="__blank" class="unfurl-url classic-link">{{idea['campaignCustomFields']['Media (YouTube link)']  }}</a></dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                                {%  endif  %}
+
+
+                                <dl class="custom-field-section-content mb-2">
+                                    <dt class="font-size-md mb-2">[IMPACTO]</dt>
+                                    <dd id="custom-field-section-122098">
+                                        <dl class="custom-fields" data-field-type="TEXTAREA">
+                                            <dt>Por favor, describa su solución propuesta:</dt>
+                                            <dd class="ql-editor ql-render ">{{idea['campaignCustomFields']['Please describe your proposed solution.']}}</dd>
+                                        </dl>
+                                        <dl class="custom-fields" data-field-type="TEXTAREA">
+                                            <dt>Describa cómo su solución propuesta abordará el desafío.</dt>
+                                            <dd class="ql-editor ql-render ">{{idea['campaignCustomFields']['Please describe how your proposed solution will address the challenge?']}}</dd>
+                                        </dl>
+                                        <dl class="custom-fields" data-field-type="TEXTAREA">
+                                            <dt>¿Qué desafíos o riesgos principales prevé para entregar este proyecto con éxito?</dt>
+                                            <dd class="ql-editor ql-render ">{{idea['campaignCustomFields']['What main challenges or risks do you foresee to deliver this project successfully?']}}</dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                                <dl class="custom-field-section-content mb-2">
+                                    <dt class="font-size-md mb-2">[FEASIBILITY]</dt>
+                                    <dd id="custom-field-section-122097">
+                                        <dl class="custom-fields" data-field-type="TEXTAREA">
+                                            <dt>Proporcione un plan detallado y un cronograma para entregar la solución.</dt>
+                                            <dd class="ql-editor ql-render ">{{idea['campaignCustomFields']['Please provide a detailed plan and timeline for delivering the solution.']}}</dd>
+                                        </dl>
+                                        <dl class="custom-fields" data-field-type="TEXTAREA">
+                                            <dt>Proporcione un desglose detallado del presupuesto.</dt>
+                                            <dd class="ql-editor ql-render ">{{idea['campaignCustomFields']['Please provide a detailed budget breakdown.']}}</dd>
+                                        </dl>
+                                        <dl class="custom-fields" data-field-type="TEXTAREA">
+                                            <dt>Proporcione los detalles de los miembros de su equipo necesarios para completar el proyecto.</dt>
+                                            <dd class="ql-editor ql-render ">{{idea['campaignCustomFields']['Please provide details of your team members required to complete the project.']}}</dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                                <dl class="custom-field-section-content mb-2">
+                                    <dt class="font-size-md mb-2">[AUDITABILIDAD]</dt>
+                                    <dd id="custom-field-section-122087">
+                                        <dl class="custom-fields" data-field-type="TEXTAREA">
+                                            <dt>Describa cómo medirá el progreso y el desarrollo del proyecto.</dt>
+                                            <dd class="ql-editor ql-render ">{{idea['campaignCustomFields']['Please describe how you will measure the progress and the development of the project?']}}</dd>
+                                        </dl>
+                                        <dl class="custom-fields" data-field-type="TEXTAREA">
+                                            <dt>¿Cómo se ve el éxito de este proyecto?</dt>
+                                            <dd class="ql-editor ql-render ">{{idea['customFieldsByKey']['what_does_success_for_this_project_look_like_']}}</dd>
+                                        </dl>
+                                        <dl class="custom-fields" data-field-type="TEXTAREA">
+                                            <dt>Proporcione información sobre si esta propuesta es una continuación de un proyecto previamente financiado en Catalyst o uno completamente nuevo.</dt>
+                                            <dd class="ql-editor ql-render ">{{idea['campaignCustomFields']['Please provide information on whether this proposal is a continuation of a previously funded project in Catalyst or an entirely new one.']}}</dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+
+                                <dl class="custom-field-section-content mb-2">
+                                    <dt class="font-size-md mb-2">[Calificación ODS]</dt>
+                                    <dd id="custom-field-section-122087">
+                                        <dl class="custom-fields" data-field-type="TEXTAREA">
+                                            <dt>Calificación ODS</dt>
+                                            <dd class="ql-editor ql-render ">{{idea['campaignCustomFields']['SDG rating']}}</dd>
+                                        </dl>
+
+                                    </dd>
+                                </dl>
+
+                            </div>
+
+                            {% else %}
+
+                            <div class="idea-meta">
+                                <dl class="">
+                                    <dd id="custom-field-section-122089">
+                                        <dl class="custom-fields" data-field-type="TEXTAREA">
+                                            <dt>¿Puede articular la brecha entre el estado actual y el estado esperado o previsto?</dt>
+                                            <dd class="ql-editor ql-render ">{{idea['campaignCustomFields']['Can you articulate the gap between the current state and the expected or envisioned state? ']}}</dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+                                <dl class="">
+                                    <dd id="custom-field-section-122094">
+                                        <dl class="custom-fields" data-field-type="TEXTAREA">
+                                            <dt>¿Cómo podría cuantificarse y/o medirse el valor de resolver este problema? (opcional)</dt>
+                                            <dd class="ql-editor ql-render ">{{idea['campaignCustomFields']['How might the value of solving this problem be quantified and/or measured? (optional)']}}</dd>
+                                        </dl>
+                                    </dd>
+                                </dl>
+
+
+
+                                {% endif %}
+
+
+                            </div>
+                            <section class="mb-3"></section>
+
+
+
+
+
+                    </article>
+                </div>
+            </main>
+        </section>
+        {% include 'campaign-side.html' %}
+    </div>
+</div>
+{% endblock %}

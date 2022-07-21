@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+<div class="container mt-3 px-sm-0 " style="margin-top: 5px!important;">
+    <div class="row">
+        <section class="col-12 col-main-content col-9">
+            <main class="main-content" id="main-content" tabindex="-1">
+                <div class="content">
+    
+
+
+                    {% include 'carousel.html' %}
+					
+                    {% include 'idea-list.html' %}
+
+                </div>
+                <div class="spacer mb-5"></div>
+            </main>
+        </section>
+
+
+        <aside class="col-sidebar col-12 col-lg-3 d-none d-lg-block">
+            <div class="sidebar-wrapper" role="complementary" id="sidebar-wrapper" tabindex="-1">
+                <section class="idea-sidebar">
+                    <div class="sidebar-view-mode">
+
+
+                        {% include 'side-campaings-list.html' %}
+
+                    </div>
+                    <div class="footer-ideascale-logo mt-4 mb-2"><a href="https://ideascale.com/" target="_blank" title="Go to ideascale.com" rel="noreferrer"><img src="{{url_for('static', filename='ideascale-logo-blue.f2e422ea.svg')}}" height="" alt="Powered by IdeaScale" class="w-100"></a></div>
+                </section>
+            </div>
+        </aside>
+
+
+    </div>
+</div>
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,54 @@
+
+
+
+<section class="card panel collapse-expand-container border-0 campaign-list active-campaign-list panel-light padding-bottom-0">
+    <header class="card-header panel-heading d-flex justify-content-between align-items-center py-2 ">
+        <span class="collapsable-header-title d-flex align-items-center text-truncate ">
+            <h2 class="h6 font-weight-bold mb-0 text-truncate " title="Campa&ntilde;as activas">Campa&ntilde;as activas</h2>
+        </span></header>
+    <div class="collapse show">
+        <article class="card-body">
+            <div class="campaign-list-group ">
+                <div class="all-ideas d-flex justify-content-between align-items-center"><a class="font-weight-normal text-dark text-decoration-none d-block w-100 current-campaign" href="/">Todas las ideas</a></div>
+                <div class="campaign-group-items-container scrollbar" style="position: relative; width: 100%; height: auto; min-height: 44px; max-height: 350px;border-radius: 4px; margin-bottom: 10px;">
+                    <div style="position: relative; margin-right: 20px; margin-bottom: -6px; min-height: 50px; max-height: 356px;">
+                        <section class="card panel collapse-expand-container border-0 m-0 panel-light">
+                            <header class="card-header panel-heading d-flex justify-content-between align-items-center py-2 ">
+                                <span class="collapsable-header-title d-flex align-items-center text-truncate text-truncate">
+                                    <h2 class="h6 font-weight-bold mb-0 text-truncate text-truncate" title="{{ nombreProyecto }}">{{ nombreProyecto }}</h2>
+                                </span>
+                                
+                            </header>
+
+                            <div class="collapse show" style="">
+                                <article class="card-body">
+                                    <ul class="pt-0 m-0 list-unstyled">
+                                        {% for campaign in campaigns %}
+                                        <li class="py-1 ">
+                                            <div class="campaign-link-container" id="campaign-26433">
+                                                <a class="d-flex align-items-center pt-1 pb-1 pl-4 pr-4 d-block w-100 text-decoration-none" title="{{ campaign['name'] }}" rel="category" href="{{ url_for('campaign', campaign_id=campaign['id']) }}">
+                                                    <img src="{{ campaign['logoImage'] }}" width="20" height="20" alt="logo" class="campaign-logo campaign-logo-sm mr-2">
+                                                    <span class="w-100 d-flex flex-column">
+                                                        <span class="campaign-name">{{ campaign['name'] }}</span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+
+
+                                    </ul>
+                                </article>
+                            </div>
+                        </section>
+
+                    </div>
+
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+
+
+
