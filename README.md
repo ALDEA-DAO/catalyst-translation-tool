@@ -328,6 +328,32 @@ host:  'xxxxxxx',
 db: 'xxxxxxx'  
 ```
 
+Las tablas con las ideas y campañas que se descargan y traducen se crean automáticamente en la base de datos.  
+
+Sin embargo, la tabla de configuración, para elegir por ej. que versión de las tablas de ideas traducidas se usa, hay que crearla en la base de datos. 
+
+Aquí esta el sql de creación junto con el primer insert que es necesario hacer también:  
+
+```
+-- Table: public.mostrarTabla
+
+-- DROP TABLE IF EXISTS public."mostrarTabla";
+
+CREATE TABLE IF NOT EXISTS public."mostrarTabla"
+(
+    id bigint NOT NULL,
+    nombre text COLLATE pg_catalog."default",
+    "nombreSQL" text COLLATE pg_catalog."default",
+    CONSTRAINT "mostrarTabla_pkey" PRIMARY KEY (id)
+)
+
+INSERT INTO public."mostrarTabla"(  
+	id, nombre, "nombreSQL")  
+	VALUES (1, 'FUND 8', 'new');  
+
+```
+
+
 El Api token para conectarse con la API de Ideascale se setea también en el archivo: `catalyst-download-translate/settings.py`  
 ```
 'ideaScale API Token': 'xxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'  
